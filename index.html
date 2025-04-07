@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clínica Dental San Cristóbal</title>
+    <link rel="stylesheet" href="index.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="login-area">
+                <a href="login.html">Iniciar sesión</a>
+                <a href="register.html">Crear cuenta</a>
+            </div>
+        </div>
+        <h1>Clínica Dental San Cristóbal</h1>
+    </header>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#consultas">Consultas</a>
+        <a href="#sobre">Sobre Nosotros</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="container" id="inicio">
+        <h2>Bienvenidos</h2>
+        <p>Ofrecemos los mejores servicios para el cuidado de tu sonrisa.</p>
+    </div>
+
+    <section class="galeria">
+        <h2>Instalaciones</h2>
+        <div class="imagenes">
+            <img src="/img2.jpg" alt="Recepción de la clínica">
+            <img src="/img3.jpg" alt="Consultorio dental">
+            <img src="/img1.png" alt="Equipo profesional">
+        </div>
+    </section>
+
+    <!-- Chatbot mejorado -->
+    <button class="chat-toggle" onclick="toggleChat()">💬</button>
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">Asistente Virtual</div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." />
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Clínica Dental San Cristóbal - Todos los derechos reservados.
+    </footer>
+
+    <script>
+        // Verificar si el usuario está logueado
+        const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+        if (!usuarioLogueado) {
+            window.location.href = "login.html"; // Redirige al login si no está logueado
+        }
+
+        // Función para alternar la visibilidad del chatbot
+        function toggleChat() {
+            const chat = document.getElementById('chatContainer');
+            chat.style.display = chat.style.display === 'none' || chat.style.display === '' ? 'flex' : 'none';
+        }
+
+        // Función para enviar mensaje en el chatbot
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (message === '') return;
+
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML += `<div class="user-msg"><strong>Tú:</strong> ${message}</div>`;
+            input.value = '';
+
+            const respuesta = detectarIntencion(message.toLowerCase());
+
+            setTimeout(() => {
+                chatBody.innerHTML += `<div class="bot-msg"><strong>Bot:</strong> ${respuesta}</div>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 400);
+        }
+
+        // Función para detectar la intención del usuario
+        function detectarIntencion(msg) {
+            const intents = [
+                {
+                    tags: ["hola", "buenos días", "buenas", "qué tal", "hey"],
+                    respuesta: "¡Hola! 😊 Bienvenido a Clínica Dental San Cristóbal. ¿En qué te puedo ayudar hoy?"
+                },
+                {
+                    tags: ["horario", "cuándo abren", "cuándo atienden", "horas", "abren"],
+                    respuesta: "Atendemos de lunes a sábado, de 9:00 AM a 6:00 PM. ¡Estaremos encantados de verte!"
+                },
+                {
+                    tags: ["limpieza", "cuánto cuesta limpieza", "precio limpieza", "hacerme limpieza"],
+                    respuesta: "Una limpieza dental cuesta $50. ¡Es muy recomendable cada 6 meses!"
+                },
+                {
+                    tags: ["brackets", "frenos", "ortodoncia", "ponerme brackets", "alinear dientes"],
+                    respuesta: "Sí, ofrecemos ortodoncia con brackets metálicos y estéticos. Podemos agendarte una valoración gratis."
+                },
+                {
+                    tags: ["implantes", "implante dental", "poner implante", "dientes fijos"],
+                    respuesta: "Realizamos implantes dentales de alta calidad. Uno de nuestros expertos puede asesorarte."
+                },
+                {
+                    tags: ["emergencia", "urgencia", "dolor fuerte", "necesito ayuda urgente"],
+                    respuesta: "Llámanos inmediatamente al +123456789 si es una emergencia. ¡Estamos aquí para ayudarte!"
+                },
+                {
+                    tags: ["contacto", "teléfono", "correo", "email", "cómo hablo con ustedes"],
+                    respuesta: "Puedes llamarnos al +123456789 o escribirnos a contacto@clinicadental.com. También tenemos WhatsApp."
+                },
+                {
+                    tags: ["gracias", "muchas gracias", "genial", "perfecto"],
+                    respuesta: "¡Con gusto! 😊 Si tienes otra consulta, aquí estoy."
+                },
+                {
+                    tags: ["adiós", "nos vemos", "hasta luego", "chau"],
+                    respuesta: "¡Cuídate mucho! 😁 Esperamos verte pronto por la clínica."
+                }
+            ];
+
+            for (let intent of intents) {
+                for (let tag of intent.tags) {
+                    if (msg.includes(tag)) {
+                        return intent.respuesta;
+                    }
+                }
+            }
+
+            return "Hmm... no estoy seguro de haber entendido. ¿Podrías decirlo de otra forma o preguntarme algo como 'horario', 'precio limpieza', 'contacto', etc.?";
+        }
+    </script>
+</body>
+</html>
