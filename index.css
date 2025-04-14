@@ -1,22 +1,56 @@
+/* FUENTE Y ESTILO GENERAL */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f4f8;
-    color: #333;
+    background-color: #E3F2FD;
+    color: #0D47A1;
 }
 
+/* CABECERA PRINCIPAL */
 header {
-    background: linear-gradient(to right, #00897B, #004D40);
+    background: linear-gradient(to right, #0D47A1, #1976D2);
     color: white;
-    padding: 40px 20px;
+    padding: 60px 20px 40px;
     text-align: center;
     font-size: 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
+/* TOP BAR (LOGIN/REGISTRO EN LA ESQUINA SUPERIOR DERECHA) */
+.top-bar {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 10;
+}
+
+.login-area {
+    display: flex;
+    gap: 10px;
+}
+
+.login-area a {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    background-color: #E3F2FD;
+    color: #0D47A1;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    border: 1px solid #0D47A1;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-area a:hover {
+    background-color: #0D47A1;
+    color: #FFFFFF;
+}
+
+/* NAVBAR */
 nav {
-    background-color: #00695C;
+    background-color: #1976D2;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -34,9 +68,10 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #004D40;
+    background-color: #0D47A1;
 }
 
+/* CONTENEDOR GENERAL */
 .container {
     max-width: 900px;
     margin: 50px auto;
@@ -44,21 +79,45 @@ nav a:hover {
     padding: 0 20px;
 }
 
+/* SUBTÍTULOS */
 .container h2 {
     font-size: 2.2rem;
     margin-bottom: 20px;
-    color: #00796B;
+    color: #4CAF50;
 }
 
-footer {
-    background: #004D40;
+/* FORMULARIOS */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+form input, form button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    background-color: #0D47A1;
     color: white;
-    text-align: center;
-    padding: 20px;
-    font-size: 16px;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-/* Galería */
+form button:hover {
+    background-color: #1565C0;
+}
+
+/* GALERÍA */
 .galeria {
     padding: 40px 20px;
     background-color: #ffffff;
@@ -67,7 +126,7 @@ footer {
 
 .galeria h2 {
     font-size: 2rem;
-    color: #00796B;
+    color: #4CAF50;
     margin-bottom: 30px;
 }
 
@@ -92,12 +151,22 @@ footer {
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
-/* Chatbot */
+/* FOOTER */
+footer {
+    background: #0D47A1;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    margin-top: 50px;
+}
+
+/* BOTÓN DE CHAT FLOTANTE */
 .chat-toggle {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #00796B;
+    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 15px;
@@ -105,8 +174,10 @@ footer {
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+    z-index: 1000;
 }
 
+/* CONTENEDOR DEL CHAT */
 .chat-container {
     position: fixed;
     bottom: 90px;
@@ -119,6 +190,7 @@ footer {
     flex-direction: column;
     overflow: hidden;
     animation: slideIn 0.3s ease;
+    z-index: 1000;
 }
 
 @keyframes slideIn {
@@ -127,7 +199,7 @@ footer {
 }
 
 .chat-header {
-    background-color: #004D40;
+    background-color: #0D47A1;
     color: white;
     padding: 15px;
     text-align: center;
@@ -156,7 +228,7 @@ footer {
 }
 
 .chat-input button {
-    background-color: #00796B;
+    background-color: #4CAF50;
     color: white;
     border: none;
     margin-left: 10px;
@@ -167,20 +239,15 @@ footer {
 }
 
 .chat-input button:hover {
-    background-color: #004D40;
-}
-
-.user-msg, .bot-msg {
-    margin: 10px 0;
-    line-height: 1.5;
+    background-color: #388E3C;
 }
 
 .user-msg {
     text-align: right;
-    color: #00796B;
+    color: #4CAF50;
 }
 
 .bot-msg {
     text-align: left;
-    color: #333;
+    color: #0D47A1;
 }

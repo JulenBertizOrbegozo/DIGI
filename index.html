@@ -32,10 +32,10 @@
 
     <section class="galeria">
         <h2>Instalaciones</h2>
-        <div class="imagenes">
-            <img src="/img2.jpg" alt="Recepción de la clínica">
-            <img src="/img3.jpg" alt="Consultorio dental">
-            <img src="/img1.png" alt="Equipo profesional">
+        <div class="imagenes-galeria">
+            <img src="img2.jpg" alt="Recepción de la clínica">
+            <img src="img3.jpg" alt="Consultorio dental">
+            <img src="img1.png" alt="Equipo profesional">
         </div>
     </section>
 
@@ -55,87 +55,145 @@
     </footer>
 
     <script>
-        // Verificar si el usuario está logueado
-        const usuarioLogueado = localStorage.getItem('usuarioLogueado');
-        if (!usuarioLogueado) {
-            window.location.href = "login.html"; // Redirige al login si no está logueado
-        }
+    // Verificar si el usuario está logueado
+    const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+    if (!usuarioLogueado) {
+        window.location.href = "login.html"; // Redirige al login si no está logueado
+    }
 
-        // Función para alternar la visibilidad del chatbot
-        function toggleChat() {
-            const chat = document.getElementById('chatContainer');
-            chat.style.display = chat.style.display === 'none' || chat.style.display === '' ? 'flex' : 'none';
-        }
+    // Función para alternar la visibilidad del chatbot
+    function toggleChat() {
+        const chat = document.getElementById('chatContainer');
+        chat.style.display = chat.style.display === 'none' || chat.style.display === '' ? 'flex' : 'none';
+    }
 
-        // Función para enviar mensaje en el chatbot
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (message === '') return;
+    // Función para enviar mensaje en el chatbot
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if (message === '') return;
 
-            const chatBody = document.getElementById('chatBody');
-            chatBody.innerHTML += `<div class="user-msg"><strong>Tú:</strong> ${message}</div>`;
-            input.value = '';
+        const chatBody = document.getElementById('chatBody');
+        chatBody.innerHTML += `<div class="user-msg"><strong>Tú:</strong> ${message}</div>`;
+        input.value = '';
 
-            const respuesta = detectarIntencion(message.toLowerCase());
+        const respuesta = detectarIntencion(message.toLowerCase());
 
-            setTimeout(() => {
-                chatBody.innerHTML += `<div class="bot-msg"><strong>Bot:</strong> ${respuesta}</div>`;
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }, 400);
-        }
+        setTimeout(() => {
+            chatBody.innerHTML += `<div class="bot-msg"><strong>Bot:</strong> ${respuesta}</div>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 400);
+    }
 
-        // Función para detectar la intención del usuario
-        function detectarIntencion(msg) {
-            const intents = [
-                {
-                    tags: ["hola", "buenos días", "buenas", "qué tal", "hey"],
-                    respuesta: "¡Hola! 😊 Bienvenido a Clínica Dental San Cristóbal. ¿En qué te puedo ayudar hoy?"
-                },
-                {
-                    tags: ["horario", "cuándo abren", "cuándo atienden", "horas", "abren"],
-                    respuesta: "Atendemos de lunes a sábado, de 9:00 AM a 6:00 PM. ¡Estaremos encantados de verte!"
-                },
-                {
-                    tags: ["limpieza", "cuánto cuesta limpieza", "precio limpieza", "hacerme limpieza"],
-                    respuesta: "Una limpieza dental cuesta $50. ¡Es muy recomendable cada 6 meses!"
-                },
-                {
-                    tags: ["brackets", "frenos", "ortodoncia", "ponerme brackets", "alinear dientes"],
-                    respuesta: "Sí, ofrecemos ortodoncia con brackets metálicos y estéticos. Podemos agendarte una valoración gratis."
-                },
-                {
-                    tags: ["implantes", "implante dental", "poner implante", "dientes fijos"],
-                    respuesta: "Realizamos implantes dentales de alta calidad. Uno de nuestros expertos puede asesorarte."
-                },
-                {
-                    tags: ["emergencia", "urgencia", "dolor fuerte", "necesito ayuda urgente"],
-                    respuesta: "Llámanos inmediatamente al +123456789 si es una emergencia. ¡Estamos aquí para ayudarte!"
-                },
-                {
-                    tags: ["contacto", "teléfono", "correo", "email", "cómo hablo con ustedes"],
-                    respuesta: "Puedes llamarnos al +123456789 o escribirnos a contacto@clinicadental.com. También tenemos WhatsApp."
-                },
-                {
-                    tags: ["gracias", "muchas gracias", "genial", "perfecto"],
-                    respuesta: "¡Con gusto! 😊 Si tienes otra consulta, aquí estoy."
-                },
-                {
-                    tags: ["adiós", "nos vemos", "hasta luego", "chau"],
-                    respuesta: "¡Cuídate mucho! 😁 Esperamos verte pronto por la clínica."
-                }
-            ];
+    function detectarIntencion(msg) {
+        const intents = [
+        {
+                tags: ["hola", "buenos días", "buenas", "qué tal", "hey", "holi", "buenas tardes", "buenas noches"],
+                respuesta: "¡Hola! 😊 Bienvenido a Clínica Dental San Cristóbal. ¿En qué te puedo ayudar hoy?"
+            },
+            {
+                tags: ["horario", "cuándo abren", "cuándo atienden", "horas", "abren", "días abiertos", "hora de cierre", "hora de apertura"],
+                respuesta: "Nuestro horario es de lunes a viernes de 8:00 a 13:30 y de 16:30 a 20:00. Sábados, domingos y festivos estamos cerrados."
+            },
+            {
+                tags: ["direccion", "dónde están", "cómo llegar", "ubicación", "mapa", "lugar", "están ubicados"],
+                respuesta: "Estamos en C. San Cristóbal, 2, bajo, 31015 Pamplona, Navarra. ¡Te esperamos!"
+            },
+            {
+                tags: ["teléfono", "número", "llamar", "contacto", "whatsapp", "puedo llamar"],
+                respuesta: "Puedes llamarnos al 948382925. También atendemos por WhatsApp si lo prefieres."
+            },
+            {
+                tags: ["correo", "email", "contactar por mail", "e-mail"],
+                respuesta: "Nuestro correo es informacion@ClinicaSancristobal.com. Escríbenos cuando lo necesites."
+            },
+            {
+                tags: ["limpieza", "cuánto cuesta limpieza", "precio limpieza", "hacerme limpieza", "higiene dental", "limpiar dientes"],
+                respuesta: "La limpieza dental cuesta 50 €. Se recomienda cada 6 meses para mantener una buena salud bucal."
+            },
+            {
+                tags: ["blanqueamiento", "blanquear", "dientes blancos", "blanqueo dental"],
+                respuesta: "Ofrecemos blanqueamiento dental por 120 €. Mejora el brillo de tu sonrisa en una sola sesión."
+            },
+            {
+                tags: ["ortodoncia", "brackets", "frenos", "alinear dientes", "alineación", "corrigir dientes"],
+                respuesta: "Realizamos ortodoncia con brackets metálicos y estéticos. Valoración gratuita. Tratamiento desde 1.200 €."
+            },
+            {
+                tags: ["implantes", "implante dental", "dientes fijos", "implantar", "poner implante", "reemplazar diente"],
+                respuesta: "Hacemos implantes dentales desde 950 €. Con materiales de alta calidad y garantía de por vida."
+            },
+            {
+                tags: ["caries", "curar caries", "tengo caries", "empaste", "rellenar muela"],
+                respuesta: "Tratamos caries con empastes estéticos por 70 € por pieza. ¡No lo dejes pasar!"
+            },
+            {
+                tags: ["dolor", "emergencia", "urgencia", "urgente", "me duele", "ayuda urgente"],
+                respuesta: "Si es una urgencia, llámanos al 948382925 y te atenderemos lo antes posible. También aceptamos urgencias sin cita."
+            },
+            {
+                tags: ["pago", "cómo pago", "tarjeta", "efectivo", "se puede pagar con tarjeta", "pagar"],
+                respuesta: "Aceptamos pagos en efectivo, con tarjeta y por Bizum. También ofrecemos financiación sin intereses en tratamientos superiores a 500 €."
+            },
+            {
+                tags: ["cita", "pedir cita", "agendar", "reservar", "quiero ir", "me puedes dar cita"],
+                respuesta: "¡Claro! Puedes llamarnos al 948382925 o escribirnos para agendar tu cita cuando prefieras."
+            },
+            {
+                tags: ["niños", "dentista infantil", "mi hijo", "odontopediatra", "para niños", "pediátrico"],
+                respuesta: "Contamos con odontopediatras especializados para atender a los más peques. ¡Ambiente divertido y sin miedo!"
+            },
+            {
+                tags: ["radiografía", "rx", "rayos x", "diagnóstico", "me pueden hacer una radiografía"],
+                respuesta: "Sí, realizamos radiografías dentales (panorámicas y periapicales). Desde 30 €."
+            },
+            {
+                tags: ["periodoncia", "encías", "sangrado encías", "tratamiento encías"],
+                respuesta: "Tratamos enfermedades de las encías con técnicas avanzadas. Consulta inicial por 40 €."
+            },
+            {
+                tags: ["endodoncia", "matar el nervio", "endodoncia dental", "tratamiento conducto"],
+                respuesta: "La endodoncia (tratamiento de conducto) cuesta desde 180 €. Es ideal para salvar dientes muy dañados."
+            },
+            {
+                tags: ["coronas", "fundas", "reconstrucción", "poner corona", "diente roto"],
+                respuesta: "Colocamos coronas de porcelana, metal-cerámica o zirconio. Precios desde 300 €."
+            },
+            {
+                tags: ["estética", "sonrisa", "diseño de sonrisa", "mejorar sonrisa", "carillas"],
+                respuesta: "Hacemos carillas de composite o porcelana. El diseño de sonrisa incluye estudio personalizado. Desde 200 € por diente."
+            },
+            {
+                tags: ["prótesis", "dentadura", "dientes postizos", "dentadura completa", "dientes removibles"],
+                respuesta: "Tenemos prótesis removibles, fijas y completas. Desde 500 € según el tipo. Consulta sin compromiso."
+            },
+            {
+                tags: ["seguros", "aseguradora", "mapfre", "adeslas", "sanitas", "dkv"],
+                respuesta: "Trabajamos con varias aseguradoras. Consúltanos si tu plan cubre nuestros tratamientos."
+            },
+            {
+                tags: ["gracias", "muchas gracias", "genial", "perfecto", "muy amable", "eres un sol"],
+                respuesta: "¡Con gusto! 😊 Si tienes otra consulta, aquí estoy."
+            },
+            {
+                tags: ["adiós", "nos vemos", "hasta luego", "chau", "bye", "hasta pronto"],
+                respuesta: "¡Cuídate mucho! 😁 Esperamos verte pronto por la clínica."
+            }
+        ];
 
-            for (let intent of intents) {
-                for (let tag of intent.tags) {
-                    if (msg.includes(tag)) {
-                        return intent.respuesta;
-                    }
+        for (let intent of intents) {
+            for (let tag of intent.tags) {
+                if (msg.includes(tag)) {
+                    return intent.respuesta;
                 }
             }
-
-            return "Hmm... no estoy seguro de haber entendido. ¿Podrías decirlo de otra forma o preguntarme algo como 'horario', 'precio limpieza', 'contacto', etc.?";
         }
-    </script>
+
+        return "Hmm... no estoy seguro de haber entendido. ¿Podrías decirlo de otra forma o preguntarme algo como 'horario', 'precio limpieza', 'brackets', 'cita', etc.?";
+    }
+
+        
+</script>
+    
 </body>
 </html>
